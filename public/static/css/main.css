@@ -1,0 +1,46 @@
+.maintable td { padding: 6px 16px 6px 6px; margin: 0; vertical-align: center; text-align: center; }
+
+.maintable { margin: 10px auto; }
+
+.maintable tr { background-color: #ccc; }
+
+.maintable .novalign { vertical-align:top; text-align: left; }
+
+.maintable .class:nth-child(odd) { background-color: #a8a8a8; }
+
+.averagelabel {
+  width: 100%;
+  text-align: right;
+}
+
+#UINoExempt {
+  text-align: center;
+}
+
+#frown {
+  font-size: 40pt;
+}
+
+.container {
+  padding-top: 10px;
+}
+
+#UIFooter {
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 10px;
+}
+
+#UIExemptColumn {
+  width: 307px;
+}
+
+.footer {
+  padding-top: 40px;
+  text-align: center;
+  color: grey;
+}
+
+.footer a {
+  color: grey;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <title>Finals Calculator</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand">The Finals Calculator</a>
+          <div class="pull-right">
+            <ul class="nav">
+              <div class="btn-group">
+                <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+                  <%= student.information["firstName"] %> <%= student.information["lastName"] %>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/"><i class="icon-off"></i> Logout</a></li> <!-- Look ma, no sessions! -->
+                </ul>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <br />
+      <table width="100%">
+        <tr>
+          <td width="80%">Classes: <%= section_count %></td>
+          <td>
+            <table border="0">
+              <tr>
+                <td class="averagelabel">Unweighed GPA:</td>
+                <td><%= gpa %></td>
+              <tr>
+                <td class="averagelabel">Average:</td>
+                <td><%= grade_average %></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <h2>Exemptions</h2>
+      Non-exemptable classes (electives, English, and Math) are not shown.<br />
+      <table width="100%" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <td>Class</td>
+            <td>Q1</td>
+            <td>Q2</td>
+            <td>S1</td>
+            <td id="UIExemptColumn">Exemptable</td>
+          </tr>
+        </thead>
+        <% exemption_data.each do |course| %>
+        <tr class="class">
+          <td class="novalign"><%= course["name"] %></td>
+          <td><%= course["final_grades"]["Q1"] %>%</td>
+          <td><%= course["final_grades"]["Q2"] %>%</td>
+          <td><%= course["final_grades"]["S1"] %>%</td>
+          <td>
+            <% if course['exemptable'] %>
+            <i class="icon-ok-sign"></i> All clear!
+            <% else %>
+            <i class="icon-remove-circle"></i> Not eligible (missing Q2 <%= course["exempt_needed"] %>%)
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table><br />
+
+      <h2>Bare Minimums</h2>
+      <table width="100%" class="table table-bordered table-striped">
+        <tr>
+          <td>Class</td>
+          <td>
+            <b>Walk in and do nothing</b><br />
+            What if you got a 0% on<br />
+            the final?
+          </td>
+          <td>
+            <b>Pasando Pelao</b><br />
+            What grade do you need<br />
+            for a 70% semester avg?
+          </td>
+          <td>
+            <b>Can I fail?</b>
+          </td>
+        </tr>
+        <% minimums_data.each do |course| %>
+        <tr class="class">
+          <td class="novalign"><%= course['name'] %></td>
+          <td><%= course['zerofinal'] %>%</td>
+          <td>
+            <% if course['pelao'] <= 0 %>
+            <i class="icon-thumbs-up"></i> Not applicable
+            <% else %>
+            <%= course['pelao'] %>%
+            <% end %>
+          </td>
+          <td>
+            <% if course['zerofinal'] > 70 %>
+            <i class="icon-ok-sign"></i> Impossible to fail
+            <% elsif course['pelao'] >= 100 %>
+            <i class="icon-remove-circle"></i> Impossible to pass
+            <% else %>
+            <i class="icon-warning-sign"></i> Possible to fail
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+
+
+      <h2>Final Targets</h2>
+      For each target, the grade that must be achieved on the final is shown inside the corresponding box. Empty boxes represent impossible (with your current grades) targets.
+      <table width="100%" class="table table-bordered table-striped">
+        <tr>
+          <td></td>
+          <td colspan="7" class="novalign">
+            S1 Target
+          </td>
+        </tr>
+        <tr>
+          <td>Class</td>
+          <td>70%</td>
+          <td>75%</td>
+          <td>80%</td>
+          <td>85%</td>
+          <td>90%</td>
+          <td>95%</td>
+          <td>100%</td>
+        </tr>
+        <% targets_data.each do |course| %>
+        <tr class="class">
+          <td class="novalign"><%= course['name'] %></td>
+          <td><%= course['target'][70] %></td>
+          <td><%= course['target'][75] %></td>
+          <td><%= course['target'][80] %></td>
+          <td><%= course['target'][85] %></td>
+          <td><%= course['target'][90] %></td>
+          <td><%= course['target'][95] %></td>
+          <td><%= course['target'][100] %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <title>Finals Calculator</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+     <div class="navbar navbar-static-top">
+       <div class="navbar-inner">
+         <div class="container">
+           <a class="brand">The Finals Calculator</a>
+         </div>
+       </div>
+     </div>
+    <div class="container">
+      <% if defined?(error_message) %>
+      <div class="alert alert-error">
+        <%= error_message %>
+      </div>
+      <% else %>
+      <div class="row" style="padding-bottom: 20px;">
+        <div class="span12 pagination-centered">
+          <h1>Hey there.</h1>
+        </div>
+      </div>
+      <div class="alert alert-info">
+        Please enter your PowerSchool username and password below to continue.
+      </div>
+      <% end %>
+      <div class="row">
+        <div class="span4 offset3">
+          <form action="/calc" method="POST" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">Username:</label>
+              <div class="controls">
+                <input type="text" name="username" value="" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Password</label>
+              <div class="controls">
+                <input type="password" name="password" value="" />
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <button type="submit" class="btn">Login</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      This application does not record your username, password, grade level, scores, or target scores.<br />
+      Available under the MIT license on <a href="https://github.com/henriwatson/finalscalc">github</a>.<br />
+      Made with <a href="http://www.sinatrarb.com/">Sinatra</a> + <a href="https://github.com/powerapi/powerapi-ruby">powerapi-ruby</a>.<br />
+    </footer>
+  </body>
+</html>
