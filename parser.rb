@@ -16,7 +16,7 @@ def calculate_averages(raw_sections)
   averages = {:gpa => 0, :grade => 0}
 
   raw_sections.each do |section|
-    grade = ((section.final_grades['Q1'] + section.final_grades['Q2'])/2).round
+    grade = ((section.final_grades['Q1'] + section.final_grades['Q2'])/2.0).round
     averages[:gpa] += determine_GPA_value(grade)
     averages[:grade] += grade
   end
@@ -43,13 +43,13 @@ def calculate_exemptions(raw_sections)
     current = {}
     current['name'] = section.name
     current['final_grades'] = section.final_grades
-    current['final_grades']['S1'] = ((current['final_grades']['Q1'] + current['final_grades']['Q2'])/2).round()
+    current['final_grades']['S1'] = ((current['final_grades']['Q1'] + current['final_grades']['Q2'])/2.0).round()
 
     if current['final_grades']['S1'] >= 90
       current['exemptable'] = true
     else
       current['exemptable'] = false
-      current['exempt_needed'] = (((89.5-(current['final_grades']['Q1']/2))*2)-current['final_grades']['Q2'])
+      current['exempt_needed'] = (((89.5-(current['final_grades']['Q1']/2.0))*2.0)-current['final_grades']['Q2'])
     end
 
     exemption_data.push(current)
@@ -73,7 +73,7 @@ def calculate_minimums(raw_sections)
 
     current = {}
     current['name'] = section.name
-    current['zerofinal'] = (((section.final_grades['Q1'] + section.final_grades['Q2'])/2)*0.8).round(1)
+    current['zerofinal'] = (((section.final_grades['Q1'] + section.final_grades['Q2'])/2.0)*0.8).round(1)
     current['pelao'] = determine_minimum(section.final_grades['Q1'], section.final_grades['Q2'], 70, false, false)
 
     minimums_data.push(current)
@@ -113,7 +113,7 @@ def calculate_targets(raw_sections)
 end
 
 def determine_minimum(term1, term2, target = 70, use_blanks = true, show_percent = true)
-  c = ((target - (((term1+term2)/2)*0.8))/0.2)
+  c = ((target - (((term1+term2)/2.0)*0.8))/0.2)
 
 
   if c <= 0 && use_blanks
